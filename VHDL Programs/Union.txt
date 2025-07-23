@@ -1,0 +1,16 @@
+module union_ex;
+   typedef union{
+    int bbeard;
+    byte wbeard;
+  }beard;
+  
+  initial begin
+    beard.bbeard='hffffff;
+    $display("bbeard=%0h",beard.bbeard);
+    beard.wbeard=5;
+    $display("wbeard=%0h",beard.wbeard);
+    
+    $display("beard:%p",beard);
+    
+  end
+endmodule

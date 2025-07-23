@@ -1,0 +1,16 @@
+class boss;
+  bit [31:0] data;
+  int addr;
+  
+  function new(bit [31:0]data,int addr);
+    this.data=data;
+    this.addr=addr;
+  endfunction
+endclass
+
+module example;
+  initial begin
+    boss b1=new(15,100);
+    $display("value of data=%0d,addr=%0d",b1.data,b1.addr);
+  end
+endmodule

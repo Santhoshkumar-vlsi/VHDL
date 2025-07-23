@@ -1,0 +1,44 @@
+module enum_ex;
+
+  // Pirate bounty enum
+  typedef enum int {
+    zoro   = 100000,
+    luffy  = 80000,
+    tony   = 10000,
+    nami   = 60000,
+    robin  = 180000,
+    ussop  = 20000,
+    sanji  = 70000
+  } pirates_e;
+
+  // Food requirement enum (limit value to fit in 4 bits)
+  typedef enum logic [3:0] {
+    meat  = 4'd10,
+    tang  = 4'd1,
+    salt  = 4'd2,
+    blade = 4'd3
+  } req_e;
+
+  pirates_e strawhat;
+  req_e need;
+
+  // Manual array to loop enum
+  pirates_e pirate_list[7] = '{zoro, luffy, tony, nami, robin, ussop, sanji};
+  string pirate_names[7]   = '{"zoro", "luffy", "tony", "nami", "robin", "ussop", "sanji"};
+
+  initial begin
+    for (int i = 0; i < 7; i++) begin
+      strawhat = pirate_list[i];
+      $display("Wanted pirate %s and their bounty is %0d", pirate_names[i], strawhat);
+      
+      if (strawhat > 10000)
+        $display("The pirate %s is dangerous with bounty %0d", pirate_names[i], strawhat);
+    end
+
+    need = salt;
+    $display("Sanji needs %s of %0d kg", "salt", need);
+  end
+
+endmodule
+
+

@@ -1,0 +1,43 @@
+//RTL
+
+module Shift_operator(
+  input [7:0]a,
+  input [2:0]y1,
+  output [7:0]shr,
+  output [7:0]shl,
+  output [7:0]ashr
+);
+  assign shr=a>>y1;
+  assign shl=a<<y1;
+  assign ashr=$signed(a)>>>y1;
+endmodule
+  
+
+//TB
+
+module tb_shift_operator;
+  reg [7:0]a;
+  reg [2:0]y1;
+  wire [7:0]shr;
+  wire [7:0]shl;
+  wire [7:0]ashr;
+  
+  Shift_operator uut (
+    .a(a),
+    .y1(y1),
+    .shr(shr),
+    .shl(shl),
+    .ashr(ashr)
+  );
+  initial begin 
+    $monitor("Time=%0t | a=%b |y1=%b | shr=%b | shl=%b |ashr=%b ",
+             $time,a,y1,shr,shl,ashr);
+    
+    a=8'b00011111;y1=3'b1;#10;
+    a=8'b00101010;y1=3'b1;#10;
+    a=8'b11111x1x;y1=3'b1;#10;
+    a=8'b11110000;y1=3'b1;#10;
+    a=8'b10101001;y1=3'b1;#10;
+    $finish;
+  end 
+endmodule

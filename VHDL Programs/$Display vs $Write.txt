@@ -1,0 +1,12 @@
+module display_task;
+  initial begin 
+    $display("RCB"); 
+    $display("Esala Cup Namthe XXX");
+    $write("RCB WOMENS - 2024, ");
+    $write("RCB MENS - 2025  ");
+    $write("Esala Cup Namthu     ");
+    #10;
+    $finish;
+  end 
+endmodule
+

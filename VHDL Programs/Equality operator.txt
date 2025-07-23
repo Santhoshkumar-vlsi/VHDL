@@ -1,0 +1,35 @@
+//RTL
+
+module Equality_op(
+  input [3:0]a,
+  input [3:0]b,
+  output equal,
+  output case_eq
+);
+  assign equal=(a==b);
+  assign case_eq=(a===b);
+endmodule 
+  
+
+//TB
+
+module tb_Equality_op;
+  reg [3:0] a, b;
+  wire equal, case_eq;
+   
+  Equality_op uut (
+    .a(a),
+    .b(b),
+    .equal(equal),
+    .case_eq(case_eq)               
+  );
+
+  initial begin
+    $monitor("Time=%0t | a=%b b=%b => ==%b | ===%b", $time, a, b, equal, case_eq);
+
+    a = 4'b0000; b = 4'b0000; #10;
+    a = 4'bx0x0; b = 4'bx0x0; #10;
+
+    $finish;
+  end
+endmodule

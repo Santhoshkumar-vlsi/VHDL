@@ -1,0 +1,15 @@
+module struct_ex;
+  struct{
+    string  name;
+    int berry;
+    int kills;
+  }pirate_details;
+  initial begin
+    pirate_details.name="Zoro";
+    pirate_details.berry=100000;
+    pirate_details.kills=17;
+    
+    $display("pirate_details:%p",pirate_details);
+    $display("pirate: Name=%s,berry=%0d,kills=%0d",pirate_details.name,pirate_details.berry,pirate_details.kills);
+  end
+endmodule

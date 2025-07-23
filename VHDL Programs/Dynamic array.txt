@@ -1,0 +1,33 @@
+module dynamic_array;
+  int dyn_array[];
+  
+  initial begin
+    $display("Default size of dyn_array %0d",dyn_array.size());
+    
+    dyn_array=new[4];
+    dyn_array='{1,2,3,4};
+    $display("Size of the dynamic array %0d",dyn_array.size());
+    
+    foreach (dyn_array[i])
+      $display("dyn_array[%0d]=%0d",i,dyn_array[i]);
+    
+    dyn_array=new[7](dyn_array);
+    $display("Size of array after resizing %0d",dyn_array.size());
+    
+    foreach (dyn_array[i])
+      $display("dyn_array[%0d]=%0d",i,dyn_array[i]);
+    
+    dyn_array=new[9];
+    $display("Size of array after resizing %0d",dyn_array.size());
+    
+    foreach (dyn_array[i])
+      $display("dyn_array[%0d]=%0d",i,dyn_array[i]);
+    
+    dyn_array.delete();
+    $display("Size of the array after deleting=%0d",dyn_array.size());
+    
+    
+    
+    
+  end 
+endmodule

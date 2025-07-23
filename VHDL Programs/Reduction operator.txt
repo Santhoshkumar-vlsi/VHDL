@@ -1,0 +1,47 @@
+//RTL
+
+module Reduction_op(
+  input [3:0]a,
+  output And ,
+  output Or ,
+  output Xor ,
+  output Nand,
+  output Nor,
+  output Xnor 
+);
+  assign And=(&a);
+  assign Or=(|a);
+  assign Xor=(^a);
+  assign Nand=(~&a);
+  assign Nor=(~|a);
+  assign Xnor=(~^a);
+endmodule
+     
+
+//TB
+
+module Tb_Reduction_op;
+  reg [3:0]a;
+  wire And,Or,Xor,Nand,Nor,Xnor;
+  
+  Reduction_op uut (
+    .a(a),
+    .And(And),
+    .Or(Or),
+    .Xor(Xor),
+    .Nand(Nand),
+    .Nor(Nor),
+    .Xnor(Xnor)
+  );
+  
+  initial begin 
+    $monitor("Time=%0t a=%b And=%b Or=%b Xor=%b Nand=%b Nor=%b Xnor=%b",$time,a,And,Or,Xor,Nand,Nor,Xnor);
+    
+    a=4'b0000;#10;
+    a=4'b0001;#10;
+    a=4'b1101;#10;
+    a=4'b1001;#10;
+    $finish;
+  end
+endmodule
+    

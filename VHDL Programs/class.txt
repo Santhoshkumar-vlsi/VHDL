@@ -1,0 +1,27 @@
+class going_merry;
+  int a;
+  int b;
+   
+  function new(int w, bit y);
+	a=w;
+    b=y;
+    $display("The value of a=%0d,b=%0d",a,b);
+  endfunction
+
+  function pirate_time(int w, bit y);
+	a=w;
+    b=y;
+    $display("The value of a=%0d,b=%0d",a,b);
+  endfunction
+  
+endclass
+
+module class_ex;
+  going_merry gm;
+  
+  initial begin
+    gm=new(1,11);
+    gm.pirate_time(1,11);
+    $display("Value of a=%0d,b=%0d",gm.a,gm.b);
+  end
+endmodule

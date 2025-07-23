@@ -1,0 +1,20 @@
+module queue_ex();
+  typedef struct{
+    string subject_name;
+    int roll_num;
+    int mark[];
+  }st_details;
+  
+  st_details zoro[$],luffy[$];
+  
+  initial begin 
+    zoro.push_back('{"Math",8,'{3,68,09,24,67}});
+    zoro.push_back('{"Science",8,'{34,45,67,12,97}});
+    luffy.push_front('{"Math",4,'{45,78,28,82,63}});
+    luffy.push_front('{"Science",8,'{17,54,72,34,65,68}});
+    
+    $display("Push_back method result %p",zoro);
+    $display("Push_front method result %p",luffy);
+    
+  end 
+endmodule

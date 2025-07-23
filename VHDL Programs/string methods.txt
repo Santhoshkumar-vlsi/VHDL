@@ -1,0 +1,17 @@
+module string_mds;
+  string a="Foggy";
+  string b="Arblion";
+  string c="Fox";
+  string d="Hex Hat";
+  
+  initial begin 
+    $display("size of the string a is %2d",a.len());
+    $display("2nd character of the string is %2s",a.getc(2));
+    $display("String b in upper case %s",b.toupper());
+    $display("string b in lower case %s",b.tolower());
+    $display("case sensitive compare between a & c %2d",a.compare(c));
+    $display("incase sensitive compare between a & c %2d",a.icompare(c));
+    $display("substring  of a is %s",a.substr(1,4));
+  end
+endmodule 
+    

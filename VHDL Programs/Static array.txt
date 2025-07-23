@@ -1,0 +1,20 @@
+module static_array_ex;
+  bit a[3:0];
+  bit [3:0] def_A[4]='{default:4'h8};   // If we give def_A[4] , the index start from the low to high(lsb->msb).
+  
+  bit [3:0] def_B[3:0]='{4{1}};
+  
+  initial begin 
+    foreach(a[i]) begin 
+      $display("Default value of a[%0d]=%0d",i,a[i]);
+    end
+    
+    foreach(def_A[i]) begin
+      $display("Default value def_A[%0d]=%0d",i,def_A[i]);
+    end
+    foreach(def_B[i]) begin
+      $display("Default value def_B[%0d]=%0d",i,def_B[i]);
+    end
+  end
+endmodule
+  

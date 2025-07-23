@@ -1,0 +1,40 @@
+module queue();
+  int var_1[$]={10,20,30,40,50};
+  int var_2[$:8];
+  int i,j;
+  
+  initial begin
+    var_2=var_1;
+    $display("var_2=%p",var_2);
+    
+    var_1 ={var_1,60};
+    $display("Inserting 60 at the end of var_1=%p",var_1);
+    
+    var_1={60,var_1};
+    $display("Inserting 60 at the beginning of var_1=%p",var_1);
+    
+    i=var_1[0];
+    j=var_1[$];
+ 
+    $display("Value of 	i=%0d j=%0d",i,j);
+    
+    var_1[2]=100;
+    $display("Result of var_1 after changing the index  2=%p",var_1);
+    
+    
+    var_1=var_1[2:$];
+    $display("Delete 0th and 1st index element in var_1=%p",var_1);
+    
+    
+    var_1=var_1[0:$-1];
+    $display("Deleting the last element in var_1=%p",var_1);
+    
+    var_1={};
+    $display("Deleting all elements in var_1=%P",var_1);
+    
+    var_2={var_2,60,70,80,90,100};
+           $display("Result of var_2 when we exceed the index =%p",var_2);
+           
+    
+  end 
+endmodule

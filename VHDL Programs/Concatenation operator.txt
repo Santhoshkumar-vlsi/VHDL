@@ -1,0 +1,31 @@
+//RTL 
+
+module Concatenation_op(
+  input [2:0]a;
+  input [2:0]b;
+  output [6:0]t
+);
+  assign t={a,b};
+endmodule 
+
+//TB
+
+module tb_concatenation_op;
+  reg [2:0]a,b;
+  wire[6:0]t;
+  
+  Concatenation_op uut(
+    .a(a),
+    .b(b),
+    .t(t)
+  );
+  initial begin
+    $monitor("Time=%0t | a=%b  | b=%b | t=%t ",$time,a,b,t);
+    
+    a=3'b001;b=3'b111;#10;
+    a=3'b10x;b=3'b000;#10;
+    a=3'b111;b=3'bxxx;#10;
+    a=3'b001;b=3'b001;#10;
+    $finish;
+  end 
+endmodule

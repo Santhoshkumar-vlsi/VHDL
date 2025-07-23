@@ -1,0 +1,20 @@
+module string_con_op;
+  string a="Foggy";
+  string b="Foggy Fox";
+  string c="Fox";
+  string d="Arblion";
+  string e="x";
+  string f="y";
+  initial begin
+    if(a>b)
+      $display(" a is greater than c");
+    else 
+      $display("a is not  greater than c");
+
+    $display("Concatenation operation od a,b,c is %s",{a,b,c});
+
+    $display("Replicaton operation result is  %s ",{{3{e}},f});
+ 
+  end
+endmodule
+  

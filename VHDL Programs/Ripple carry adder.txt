@@ -1,0 +1,63 @@
+//RTL
+
+
+module full_add(
+  input a,b,cin,
+  output sum,carry
+);
+  assign sum=a^b^cin;
+  assign carry=(a&b)|(b&cin)|(a&cin);
+endmodule
+
+module ripple_carry_add #(parameter Size=4)
+  (input [Size-1:0]a,b,
+   input cin,
+   output [Size-1:0]sum,
+   output cout);
+  wire[Size-1:0]carry;
+  
+  full_add f1(a[0],b[0],cin,sum[0],carry[0]);
+ genvar i;
+  generate 
+    for(i=1;i<Size;i++) begin 
+    full_add f(a[i],b[i],carry[i-1],sum[i],carry[i]);
+    end
+  endgenerate
+  assign cout=carry[Size-1];
+endmodule
+
+//TB
+
+module tb_full_add;
+   parameter Size =4;
+  reg [Size-1:0]a,b;
+  reg cin;
+  wire [Size-1:0]sum;
+  wire cout;
+ 
+  ripple_carry_add #(Size) dut(
+    .a(a),
+    .b(b),
+    .cin(cin),
+    .sum(sum),
+    .cout(cout)
+  );
+  initial begin
+    $display("Time\t a\t b\t cin=> sum\t cout ");
+    $monitor("%0dns\t %b\t %b\t %b => %b\t %b",$time,a,b,cin,sum,cout);
+     a = 4'b0011; b = 4'b0101; cin = 0; #10;
+
+    // Test case 2: 7 + 8
+    a = 4'b0111; b = 4'b1000; cin = 0; #10;
+
+    // Test case 3: 15 + 1
+    a = 4'b1111; b = 4'b0001; cin = 0; #10;
+
+    // Test case 4: 9 + 6 with carry-in = 1
+    a = 4'b1001; b = 4'b0110; cin = 1; #10;
+
+    // Test case 5: 0 + 0 + carry-in = 1
+    a = 4'b0000; b = 4'b0000; cin = 1; #10;
+   $finish;
+  end 
+endmodule

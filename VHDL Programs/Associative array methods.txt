@@ -1,0 +1,40 @@
+module associative_methods();
+  bit [7:0]array[int];
+  int key;
+  
+  initial begin 
+    array='{7:2,10:4,2:6,9:7,30:10,13:12,5:10};
+     
+    $display("Element are =%p",array);
+    $display("Total elements using num method =%0d",array.num());
+    $display("Total elements using size method =%0d",array.size());
+    
+    array.first(key);
+    $display("First Element of array=%0d",key);
+    
+    array.last(key);
+    $display("Last element of array =%0d",key);
+     
+    array.prev(key);
+    $display("Previous element of 30 =%0d",key);
+    
+    key=9;
+    array.next(key);
+    $display("Next element of 9	 =%0d",key);
+    
+    
+    if(array.exists(5))
+      $display("An element exist at index=5");
+    else 
+      $display("An element doesn't exist  at index =5");
+    
+    array.delete(13);
+    $display("Element are =%p",array);
+    
+    array.delete();
+    $display("Size of the array is %0d",array.size());
+    
+  end
+endmodule
+    
+    

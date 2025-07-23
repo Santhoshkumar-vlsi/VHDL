@@ -1,0 +1,23 @@
+class pirates;
+   static int luffy;
+  int zoro;
+  
+  function new();
+    luffy++;
+    zoro++;
+  endfunction
+endclass
+
+module class_pirates;
+  pirates r[6];
+  	initial begin
+      foreach(r[i]) begin
+        r[i]=new();
+        $display("value of luffy[%0d]=%0d,zoro[%0d]=%0d",i,r[i].luffy,i,r[i].zoro);
+      end
+      foreach(r[i]) begin
+        $display("value of luffy[%0d]=%0d",i,r[i].luffy);
+      end
+    end
+endmodule
+        

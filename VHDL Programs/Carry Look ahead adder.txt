@@ -1,0 +1,57 @@
+//RTL
+
+
+module carry_LA(
+  input [3:0]a,b ,
+  input cin,
+  output [3:0]sum,
+  output cout
+);
+  wire [3:0]g,p,c;
+  assign g=a&b;
+  assign p=a^b;
+
+  
+  assign c[0]=cin;
+  assign c[1]=g[0] | (p[0]&c[0]);
+  assign c[2]=g[1] | (p[1]&c[1]);
+  assign c[3]=g[2] | (p[2]&c[2]);
+  assign cout=g[3] | (p[3]&c[3]);
+    
+  assign sum=p^c;
+endmodule
+
+//TB
+
+module tb_carry_LA;
+  reg [3:0]a,b;
+  reg cin;
+  wire [3:0]sum;
+  wire cout;
+  
+  carry_LA uut(
+    .a(a),
+    .b(b),
+    .cin(cin),
+    .sum(sum),
+    .cout(cout)
+  );
+  
+  initial begin 
+         $dumpfile("carry_LA.vcd");      // 1. Name of the VCD output file
+    $dumpvars( 1);      // 2. Dump all signals in this testbench
+  end
+
+   
+  initial begin
+    $display("Time \t a \t b \t cin => sum \t couT");
+    $monitor("%0t \t %h \t %h \t %b => %h \t %b",$time,a,b,cin,sum,cout);
+    
+     a = 4'b0000; b = 4'b0000; cin = 0; #10;
+    a= 4'b0101; b= 4'b0011; cin = 0; #10;
+    a = 4'b1100; b = 4'b1010; cin = 1; #10;
+    a = 4'b1111; b = 4'b1111; cin = 1; #10;
+    
+    $finish;
+  end
+endmodule

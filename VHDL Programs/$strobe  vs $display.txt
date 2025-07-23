@@ -1,0 +1,17 @@
+module strobe_disp;
+  reg [4:0]vk;
+  reg [4:0]abd;
+  initial begin 
+     
+    vk=17;
+    abd=17;
+    #5;
+    vk<=vk+1;
+    $display("Time=%0t  vk=%d abd=%d ",$time,vk,abd);
+    $strobe("Time=%0t  vk=%d abd=%d ",$time,vk,abd);
+    $finish;
+    #10;
+  end 
+endmodule
+    
+    

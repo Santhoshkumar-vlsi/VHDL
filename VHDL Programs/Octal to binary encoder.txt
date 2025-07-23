@@ -1,0 +1,51 @@
+//RTL
+
+
+module Octal_b_ec(
+  input [7:0]d,
+  output reg [2:0] y
+);
+  
+  always@(d)  begin
+      case(d)
+        8'b0000_0001:y=3'd0;
+        8'b0000_0010:y=3'd1;
+        8'b0000_0100:y=3'd2;
+        8'b0000_1000:y=3'd3;
+        8'b0001_0000:y=3'd4;
+        8'b0010_0000:y=3'd5;
+        8'b0100_0000:y=3'd6;
+        8'b1000_0000:y=3'd7;
+        default:y=3'dxxx;
+      endcase 
+  end
+endmodule
+        
+//TB
+
+module tb_octal_b_en;
+  reg [7:0]d;
+  wire [2:0]y;
+  
+  Octal_b_ec uut(
+    .d(d),
+    .y(y)
+  );
+  initial begin
+    $display("Time \t input (d) \t output(y)");
+    $monitor("%0t \t %b \t %d",$time,d,y);
+     d = 8'b0000_0001; #10;
+    d = 8'b0000_0010; #10;
+    d = 8'b0000_0100; #10; 
+    d = 8'b0000_1000; #10;
+    d = 8'b0001_0000; #10;
+    d = 8'b0010_0000; #10;
+    d = 8'b1000_0000; #10;
+
+    // Test invalid input (more than one bit high)
+    d = 8'b0000_0011; #10;
+    d = 8'b0000_0000; #10;
+
+    $finish;
+  end
+endmodule 

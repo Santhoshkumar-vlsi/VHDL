@@ -1,0 +1,103 @@
+//RTL
+
+module half_add(
+  input a,b,
+  output sum,carry);
+  
+  assign sum=a^b;
+  assign carry=a&b;
+endmodule
+module full_add(
+  input a,b,cin,
+  output sum,carry
+);
+  assign sum=a^b^cin;
+  assign carry=(a&b)|(b&cin)|(a&cin);
+endmodule
+module ex
+  #(parameter sel=0)//sel is a compile-time constant.Its                            default value is 0, unless                                 overridden during instantiation//
+  
+  (input a,b,cin,
+   output sum,carry);
+ generate
+  if(sel)begin
+    half_add ha(
+      .a(a),
+      .b(b),
+      .sum(sum),
+      .carry(carry)
+    );
+  end
+  else begin 
+    full_add fa(
+      .a(a),
+      .b(b),
+      .cin(cin),
+      .sum(sum),
+      .carry(carry)
+    );
+  end
+ endgenerate
+endmodule
+
+//TB
+
+`timescale 1ns / 1ps
+
+module ex_tb;
+
+  // --- Full Adder Test ---
+  reg a, b, cin;
+  wire sum, carry;
+
+  ex #(.sel(0)) dut_full (
+    .a(a),
+    .b(b),
+    .cin(cin),
+    .sum(sum),
+    .carry(carry)
+  );
+
+  // --- Half Adder Test ---
+  reg a2, b2;
+  wire sum2, carry2;
+
+  ex #(.sel(1)) dut_half (
+    .a(a2),
+    .b(b2),
+    .cin(1'b0),  // Not used in half adder
+    .sum(sum2),
+    .carry(carry2)
+  );
+
+  // --- Full Adder Initial Block ---
+  initial begin 
+    $display("Testing Full Adder (sel=0)");
+    $display("A B Cin | Sum Carry");
+    $display("--------------------------");
+
+    for (int i = 0; i < 8; i++) begin 
+      {a, b, cin} = i;
+      #5;
+      $display("%b %b  %b  |  %b    %b", a, b, cin, sum, carry);
+    end
+  end
+
+  // --- Half Adder Initial Block ---
+  initial begin
+    #50;  // Wait until full adder test completes
+    $display("\nTesting Half Adder (sel=1)");
+    $display("A B | Sum Carry");
+    $display("----------------");
+
+    for (int i = 0; i < 4; i++) begin
+      {a2, b2} = i;
+      #5;
+      $display("%b %b |  %b    %b", a2, b2, sum2, carry2);
+    end
+
+    #10;
+    $finish;
+  end
+
+endmodule

@@ -1,0 +1,62 @@
+//RTL
+
+module freq_div3 (
+  input clk,
+  input rst,
+  output reg out_clk
+);
+
+  reg [1:0] count;
+
+  always @(posedge clk or posedge rst) begin
+    if (rst)
+      count <= 0;
+    else
+      count <= (count == 2) ? 0 : count + 1;
+  end
+
+  always @(posedge clk or posedge rst) begin
+    if (rst)
+      out_clk <= 0;
+    else if (count == 0)
+      out_clk <= ~out_clk;
+  end
+endmodule
+
+
+//TB
+
+
+module tb_freq_div3;
+
+  // Testbench signals
+  reg clk;
+  reg rst;
+  wire out_clk;
+
+  freq_div3 uut (
+    .clk(clk),
+    .rst(rst),
+    .out_clk(out_clk)
+  );
+
+  // Clock generation: 10ns period (100 MHz)
+  always #5 clk = ~clk;
+
+  // Initial stimulus
+  initial begin
+    $dumpfile("freq_div3.vcd");  // For waveform viewing (if using GTKWave)
+    $dumpvars(1);
+
+    // Initialize inputs
+    clk = 0;
+    rst = 1;
+
+    // Hold reset for a few cycles
+    #15 rst = 0;
+
+    // Run simulation for some time
+    #200 $finish;
+  end
+
+endmodule

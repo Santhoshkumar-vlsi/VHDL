@@ -1,0 +1,13 @@
+module associative_array();
+  int no_swords[string];
+  int co_per_kills[integer]='{3:100,4:10,5:50};
+  
+  initial begin 
+    no_swords='{"zoro":6,"luffy":0,"nami":3,"sanji":1};
+    
+    $display("Number of swords =%p",no_swords);
+    $display("Number of swords to zoro is =%0d",no_swords["zoro"]);
+    $display("combat_per_kills=%p",co_per_kills);
+    $display("value of 4 is=%0d",co_per_kills[4]);
+  end
+endmodule

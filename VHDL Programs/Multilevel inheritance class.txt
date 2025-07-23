@@ -1,0 +1,32 @@
+class white_beard;
+  int mul;
+  
+  function multi(int a,int b);
+    mul=a*b;
+  endfunction
+endclass 
+
+class black_beard extends white_beard;
+  int sub;
+  function subtra(int a ,int b);
+    sub=a-b;
+  endfunction
+endclass
+
+class fake_beard extends black_beard;
+  int add;
+  function addi(int a,int b);
+    add=a+b;
+  endfunction
+endclass
+
+module beards;
+  
+  initial begin
+    fake_beard f1;
+    f1=new();
+    f1.multi(2,12);
+    f1.subtra(3,3);
+    f1.addi(24,2);
+    
+    $display("value of mul=%0d,sub=%0d,mul=%0d",f1.mul,f1.sub,f1.add);

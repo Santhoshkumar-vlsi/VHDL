@@ -1,0 +1,38 @@
+module Queue_methods;
+  int f1[$]={6.1,4,3,2,1};
+  int p;
+  
+  initial begin 
+    $display("Size of the queue %0d",f1.size());
+    $display("Initial values of queue f1 =%p",f1);
+    
+    f1.insert(2,80);
+    $display("after insert f1=%p",f1);
+    $display("Size of the queue %0d",f1.size());
+    
+    f1.push_front(11);
+    $display("After pushing in front of the queue=%p",f1);
+     $display("Size of the queue %0d",f1.size());
+    
+    f1.push_back(88);
+    $display("After pushing in back of the queue=%p",f1);
+    $display("Size of the queue %0d",f1.size());
+    
+    
+    p=f1.pop_front();
+    $display("AFTER poped the front element=%p",f1);
+    $display("Size of the queue %0d",f1.size());
+    
+    p=f1.pop_back();
+    $display("AFTER poped the back the  element=%p",f1);
+    $display("Size of the queue %0d",f1.size());
+    
+    f1.delete(2);
+    $display("After deleting the in index=%p",f1);
+    $display("Size of the queue %0d",f1.size());
+    
+     f1.delete();
+    $display("After deleting the in index=%p",f1);
+    $display("Size of the queue %0d",f1.size());
+  end
+endmodule

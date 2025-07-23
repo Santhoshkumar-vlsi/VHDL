@@ -1,0 +1,66 @@
+//RTL
+
+module f4_bit_seq(
+  input logic [3:0]D0,D1,D2,D3,
+  input logic clk,
+  input logic rst,
+  output logic [3:0]y
+);
+  logic [1:0]sel;	
+  
+  always_ff @(posedge clk)begin 
+    if(rst)
+      sel<=2'b00;
+    else 
+      sel<=sel+1;
+  end
+  always_comb begin
+    case(sel)
+      2'b00:y=D0;
+      2'b01:y=D1;
+      2'b10:y=D2;
+      2'b11:y=D3;
+      default:y=4'b0000;
+    endcase
+  end
+endmodule
+      
+ //TB
+
+
+module tb_4_bit_seq;
+ logic clk,rst;
+  logic [3:0]D0,D1,D2,D3;
+  logic [3:0] y;
+  
+  f4_bit_seq dut(
+    .clk(clk),
+    .rst(rst),
+    .D0(D0),
+    .D1(D1),
+    .D2(D2),
+    .D3(D3),
+    .y(y)
+  );
+  
+  always #5 clk= ~clk;
+  initial begin
+    clk=0;
+    rst=1;
+    D0=4'b0001;
+    D1=4'b1010;
+    D2=4'b1111;
+    D3=4'b0111;
+  
+    #10;
+    rst=0;
+    #100;
+    $finish;
+  end
+  initial begin 
+    $monitor("Time=%0t D0=%b D1=%b D2=%b D3=%b 	sel=%b y=%b",$time,D0,D1,D2,D3,dut.sel,y);
+    $dumpfile("dump.vcd");
+    $dumpvars(1,tb_4_bit_seq);
+  end
+endmodule
+    
